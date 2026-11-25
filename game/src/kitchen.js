@@ -241,7 +241,9 @@ export function createKitchen(random) {
       return EVENT_FAIL;
     }
     const tip = Math.round((order.patience / order.maxPatience) * 10);
-    const earned = order.price + tip;
+    const perfect = order.patience / order.maxPatience >= 0.7;
+    const bonus = perfect ? 5 : 0;
+    const earned = order.price + tip + bonus;
     state.coins += earned;
     state.score += earned;
     state.combo += 1;
@@ -249,7 +251,7 @@ export function createKitchen(random) {
     state.dishesServed += 1;
     state.plate = { items: [], dish: null };
     queue.remove(order);
-    say(`+${earned} koin${tip > 0 ? ` (termasuk tip ${tip})` : ''}!`);
+    say(perfect ? `SEMPURNA! +${earned} koin (tip ${tip} + bonus ${bonus}).` : `+${earned} koin${tip > 0 ? ` (termasuk tip ${tip})` : ''}!`);
     return EVENT_SERVED;
   }
 

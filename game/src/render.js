@@ -216,7 +216,8 @@ export function createRenderer(canvas) {
     context.restore();
   }
 
-  function drawCustomerFace(customer, cx, cy, radius) {
+  /** A customer's face: smile while they wait, a worried frown and a sweat drop when patience runs low. */
+  function drawCustomerFace(customer, cx, cy, radius, worried) {
     context.fillStyle = customer.color;
     context.beginPath();
     context.arc(cx, cy, radius, 0, Math.PI * 2);
@@ -229,8 +230,19 @@ export function createRenderer(canvas) {
     context.strokeStyle = '#2e2118';
     context.lineWidth = radius * 0.08;
     context.beginPath();
-    context.arc(cx, cy + radius * 0.25, radius * 0.35, 0.15 * Math.PI, 0.85 * Math.PI);
+    if (worried) {
+      // Frown: the arc opens downward.
+      context.arc(cx, cy + radius * 0.7, radius * 0.35, 1.15 * Math.PI, 1.85 * Math.PI);
+    } else {
+      context.arc(cx, cy + radius * 0.25, radius * 0.35, 0.15 * Math.PI, 0.85 * Math.PI);
+    }
     context.stroke();
+    if (worried) {
+      context.fillStyle = '#9fd8ef';
+      context.beginPath();
+      context.arc(cx + radius * 0.75, cy - radius * 0.55, radius * 0.16, 0, Math.PI * 2);
+      context.fill();
+    }
     if (customer.hat === 'cap') {
       context.fillStyle = '#2e2118';
       context.beginPath();
@@ -416,7 +428,7 @@ export function createRenderer(canvas) {
       context.strokeStyle = urgent ? '#d94f3d' : PALETTE.panelEdge;
       context.lineWidth = urgent ? 3 : 2;
       context.stroke();
-      drawCustomerFace(order.customer, rect.x + 34, rect.y + 34, 22);
+      drawCustomerFace(order.customer, rect.x + 34, rect.y + 34, 22, urgent);
       text(order.customer.name, rect.x + 66, rect.y + 30, 16, PALETTE.text, 'left', 'bold');
       text(order.name, rect.x + 66, rect.y + 54, 20, PALETTE.accent, 'left', 'bold');
       text(`Rp ${order.price}`, rect.x + rect.width - 14, rect.y + 30, 16, '#4e7a3a', 'right', 'bold');

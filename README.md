@@ -19,6 +19,8 @@ order — masak hidangannya sebelum kesabaran mereka habis.
 - Shift berlangsung 2,5 menit; tiap 30 detik naik level dan pesanan datang
   makin cepat. Sate Ayam baru muncul dari level 2.
 - Antar cepat dapat tip; antar berturut-turut tanpa kesalahan menaikkan combo.
+  Antar saat kesabaran pelanggan masih di atas 70% dapat bonus SEMPURNA +5 koin.
+  Wajah pelanggan berubah cemas saat kesabarannya menipis.
 
 Tombol: Spasi mulai · P jeda · S antar piring jadi · T buang · M suara.
 
